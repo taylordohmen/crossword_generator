@@ -1,17 +1,15 @@
 \documentclass{article}
 
-\usepackage{xcolor}
 \usepackage{fourier-otf}
-\usepackage{fontspec}
 \usepackage[margin = 2cm]{geometry}
 \usepackage{tikz}
-% \usetikzlibrary{
-%     calc,
-%     math
-% }
+\usetikzlibrary{
+    calc
+}
 
 \directlua{dofile("grid.lua")}
 \newcommand*{\blackcoordinates}[1]{\directlua{black_coordinates(#1)}}
+\newcommand*{\numbers}{\directlua{numbers()}}
 
 \newcommand{\n}{15}
 
@@ -19,15 +17,20 @@
 
 \begin{document}
 
-\hfill
-\scalebox{0.666}{
+% \hfill
+% \resizebox{0.666\linewidth}{!}{
+\begin{center}
     \begin{tikzpicture}
             \draw[step = 1, gray, very thin] (0, 0) grid (\n, -\n);
             \foreach[expand list] \x / \y in {\blackcoordinates{\n}} {
                 \fill[black] (\x, -\y) -- (\x - 1, -\y) -- (\x - 1, -\y + 1) -- (\x, -\y + 1) -- (\x, -\y);
             }
+            \foreach[expand list, count = \i] \x / \y in {\numbers} {
+                \node at (\x - 0.8, -\y + 0.8) {$\i$};
+            }
     \end{tikzpicture}
-}
+\end{center}
+    % }
 
 % \section*{Forbidden Patterns}
 
