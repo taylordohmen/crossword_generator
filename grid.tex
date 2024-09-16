@@ -1,0 +1,107 @@
+\documentclass{article}
+
+\usepackage{xcolor}
+\usepackage{fourier-otf}
+\usepackage{fontspec}
+\usepackage[margin = 2cm]{geometry}
+\usepackage{tikz}
+% \usetikzlibrary{
+%     calc,
+%     math
+% }
+
+\directlua{dofile("grid.lua")}
+\newcommand*{\blackcoordinates}[1]{\directlua{black_coordinates(#1)}}
+
+\newcommand{\n}{15}
+
+\newcommand{\ts}[1]{\ensuremath{\mathsf{#1}}}
+
+\begin{document}
+
+\hfill
+\scalebox{0.666}{
+    \begin{tikzpicture}
+            \draw[step = 1, gray, very thin] (0, 0) grid (\n, -\n);
+            \foreach[expand list] \x / \y in {\blackcoordinates{\n}} {
+                \fill[black] (\x, -\y) -- (\x - 1, -\y) -- (\x - 1, -\y + 1) -- (\x, -\y + 1) -- (\x, -\y);
+            }
+    \end{tikzpicture}
+}
+
+% \section*{Forbidden Patterns}
+
+% \begin{center}
+%     \resizebox{\linewidth}{!}{
+%         \begin{tikzpicture}
+%             \foreach \x in {2, 8, 14, ..., 35} {
+%                 % horizontal long
+%                 \draw (\x-2, 0) -- (\x+3, 0);
+%                 \draw (\x-2, 1) -- (\x+3, 1);
+%                 % vertical long
+%                 \draw (\x, -2) -- (\x, 3);
+%                 \draw (\x+1, -2) -- (\x+1, 3);
+                
+%                 \foreach \i in {-2, -1, 2, 3} {
+%                     % horizontal short
+%                     \draw (\x, \i) -- (\x+1, \i);
+%                     % vertical short
+%                     \draw (\x+\i, 0) -- (\x+\i, 1);
+%                 }
+%             }
+
+%             \filldraw (2, 0) -- (2, 1) -- (1, 1) -- (1, 0) -- (2, 0);
+%             \filldraw (3, 0) -- (3, 1) -- (4, 1) -- (4, 0) -- (3, 0);
+%             \filldraw[lightgray, draw = black] (2, 1) -- (2, 2) -- (3, 2) -- (3, 1) -- (2, 1);
+%             \filldraw[lightgray, draw = black] (2, 0) -- (2, -1) -- (3, -1) -- (3, 0) -- (2, 0);
+%             \filldraw[lightgray, draw = black] (0, 0) -- (0, 1) -- (1, 1) -- (1, 0) -- (0, 0);
+%             \filldraw[lightgray, draw = black] (4, 0) -- (4, 1) -- (5, 1) -- (5, 0) -- (4, 0);
+%             \filldraw[lightgray, draw = black] (2, 2) -- (2, 3) -- (3, 3) -- (3, 2) -- (2, 2);
+%             \filldraw[lightgray, draw = black] (2, -1) -- (2, -2) -- (3, -2) -- (3, -1) -- (2, -1);
+
+%             \filldraw[lightgray, draw = black] (8, 0) -- (8, 1) -- (7, 1) -- (7, 0) -- (8, 0);
+%             \filldraw[lightgray, draw = black] (9, 0) -- (9, 1) -- (10, 1) -- (10, 0) -- (9, 0);
+%             \filldraw (8, 1) -- (8, 2) -- (9, 2) -- (9, 1) -- (8, 1);
+%             \filldraw (8, 0) -- (8, -1) -- (9, -1) -- (9, 0) -- (8, 0);
+%             \filldraw[lightgray, draw = black] (6, 0) -- (6, 1) -- (7, 1) -- (7, 0) -- (6, 0);
+%             \filldraw[lightgray, draw = black] (10, 0) -- (10, 1) -- (11, 1) -- (11, 0) -- (10, 0);
+%             \filldraw[lightgray, draw = black] (8, 2) -- (8, 3) -- (9, 3) -- (9, 2) -- (8, 2);
+%             \filldraw[lightgray, draw = black] (8, -1) -- (8, -2) -- (9, -2) -- (9, -1) -- (8, -1);
+
+%             \filldraw (14, 0) -- (14, 1) -- (13, 1) -- (13, 0) -- (14, 0);
+%             \filldraw[lightgray, draw = black] (14, 1) -- (14, 2) -- (15, 2) -- (15, 1) -- (14, 1);
+%             \filldraw[lightgray, draw = black] (14, 0) -- (14, -1) -- (15, -1) -- (15, 0) -- (14, 0);
+%             \filldraw[lightgray, draw = black] (12, 0) -- (12, 1) -- (13, 1) -- (13, 0) -- (12, 0);
+%             \filldraw (16, 0) -- (16, 1) -- (17, 1) -- (17, 0) -- (16, 0);
+%             \filldraw[lightgray, draw = black] (14, 2) -- (14, 3) -- (15, 3) -- (15, 2) -- (14, 2);
+%             \filldraw[lightgray, draw = black] (14, -1) -- (14, -2) -- (15, -2) -- (15, -1) -- (14, -1);
+
+%             \filldraw (21, 0) -- (21, 1) -- (22, 1) -- (22, 0) -- (21, 0);
+%             \filldraw[lightgray, draw = black] (20, 1) -- (20, 2) -- (21, 2) -- (21, 1) -- (20, 1);
+%             \filldraw[lightgray, draw = black] (20, 0) -- (20, -1) -- (21, -1) -- (21, 0) -- (20, 0);
+%             \filldraw (18, 0) -- (18, 1) -- (19, 1) -- (19, 0) -- (18, 0);
+%             \filldraw[lightgray, draw = black] (22, 0) -- (22, 1) -- (23, 1) -- (23, 0) -- (22, 0);
+%             \filldraw[lightgray, draw = black] (20, 2) -- (20, 3) -- (21, 3) -- (21, 2) -- (20, 2);
+%             \filldraw[lightgray, draw = black] (20, -1) -- (20, -2) -- (21, -2) -- (21, -1) -- (20, -1);
+
+%             \filldraw[lightgray, draw = black] (27, 0) -- (27, 1) -- (28, 1) -- (28, 0) -- (27, 0);
+%             \filldraw[lightgray, draw = black] (25, 0) -- (25, 1) -- (26, 1) -- (26, 0) -- (25, 0);
+%             \filldraw (26, 1) -- (26, 2) -- (27, 2) -- (27, 1) -- (26, 1);
+%             \filldraw[lightgray, draw = black] (24, 0) -- (24, 1) -- (25, 1) -- (25, 0) -- (24, 0);
+%             \filldraw[lightgray, draw = black] (28, 0) -- (28, 1) -- (29, 1) -- (29, 0) -- (28, 0);
+%             \filldraw[lightgray, draw = black] (26, 2) -- (26, 3) -- (27, 3) -- (27, 2) -- (26, 2);
+%             \filldraw (26, -1) -- (26, -2) -- (27, -2) -- (27, -1) -- (26, -1);
+
+%             \filldraw[lightgray, draw = black] (33, 0) -- (33, 1) -- (34, 1) -- (34, 0) -- (33, 0);
+%             \filldraw[lightgray, draw = black] (31, 0) -- (31, 1) -- (32, 1) -- (32, 0) -- (31, 0);
+%             \filldraw (32, 0) -- (32, -1) -- (33, -1) -- (33, 0) -- (32, 0);
+%             \filldraw[lightgray, draw = black] (30, 0) -- (30, 1) -- (31, 1) -- (31, 0) -- (30, 0);
+%             \filldraw[lightgray, draw = black] (34, 0) -- (34, 1) -- (35, 1) -- (35, 0) -- (34, 0);
+%             \filldraw (32, 2) -- (32, 3) -- (33, 3) -- (33, 2) -- (32, 2);
+%             \filldraw[lightgray, draw = black] (32, -1) -- (32, -2) -- (33, -2) -- (33, -1) -- (32, -1);
+
+%         \end{tikzpicture}
+%     }
+% \end{center}
+
+\end{document}
